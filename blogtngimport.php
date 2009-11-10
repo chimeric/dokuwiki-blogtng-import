@@ -28,7 +28,6 @@ DESCRIPTION
         http://dokuwiki.org/plugin:blog
         http://dokuwiki.org/plugin:discussion
         http://dokuwiki.org/plugin:linkback
-        http://dokuwiki.org/plugin:tag
 
 OPTIONS
     -h --help       Displays this help text.
@@ -36,8 +35,8 @@ OPTIONS
     -d --dryun      Performs a dryrun without importing anything.
 
     -u --user       set wiki user for whom the entries should be imported.
-                    The user must be an existing login name.
 
+                    The user must be an existing login name.
     -a --author     Explicitely set author name to be used for import.
 
     -m --mail       Explicitely set mail address to be used for import.
@@ -311,9 +310,9 @@ foreach($pages as $page) {
     } else {
         $text = '';
         $text = io_readFile(wikiFN($page));
-        $pattern = array('/~~DISCUSSION.*?~~/', '/{{tag>.*?}}/', '/~~LINKBACK~~/');
+        $pattern = array('/~~DISCUSSION.*?~~/', '/{{tag>.*?}}/', '/~~LINKBACK.*?~~/');
         $text = preg_replace($pattern, '', $text);
-        io_saveFile(wikiFN($page]), $text);
+        io_saveFile(wikiFN($page), $text);
     }
 }
 
