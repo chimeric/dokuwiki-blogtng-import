@@ -273,13 +273,13 @@ foreach($pages as $page) {
     }
 
     // get linkbacks
-    $lfile = metaFN($page['id'], '.linkbacks');
+    $lfile = metaFN($page, '.linkbacks');
     if(@file_exists($lfile)) {
         array_push($garbage, $lfile);
         $linkbacks = unserialize(io_readFile($lfile, false));
         if(!empty($linkbacks['receivedpings'])) {
             if($opt['dryrun']) {
-                pltn('INFO: Would save ' . count($linkbacks['receivedpings']) . ' linkback(s) for' . $entry['page']);
+                ptln('INFO: Would save ' . count($linkbacks['receivedpings']) . ' linkback(s) for' . $entry['page']);
             }
             foreach($linkbacks['receivedpings'] as $linkback) {
                 $lb = array();
@@ -304,7 +304,6 @@ foreach($pages as $page) {
         }
     }
 
-    // strip syntax
     if($opt['dryrun']) {
         ptln('INFO: Would attempt to strip discussion/linkback plugin syntax from wiki pages!');
     } else {
