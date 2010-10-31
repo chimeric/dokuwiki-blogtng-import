@@ -208,6 +208,7 @@ foreach($pages as $page) {
     $entry['login']   = $opt['user'];
     $entry['mail']    = $opt['mail'];
     $entry['blog']    = $opt['blog'];
+    $entry['commentstatus'] = 'enabled';
 
     // save entry
     $entryhelper->entry = $entryhelper->prototype(); // reset entry
