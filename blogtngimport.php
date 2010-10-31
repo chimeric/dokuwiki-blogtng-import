@@ -156,7 +156,14 @@ if($OPTS->has('b') or $OPTS->has('blog')) {
 }
 
 if(!empty($opt['ns'])) {
-    $pages = ft_pageLookup($opt['ns'], false);
+    $ns = cleanID($opt['ns']);
+    $pages = array_keys(ft_pageLookup($ns, true, false));
+    if ($ns !== '') {
+        $pages = array_filter($pages, function($id) use ($ns) {
+            return (strpos($id, $ns.':') === 0);
+        });
+    }
+
     if(!empty($pages)) {
         ptln('Found ' . count($pages) . ' pages...');
     } else {
