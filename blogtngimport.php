@@ -156,7 +156,14 @@ if($OPTS->has('b') or $OPTS->has('blog')) {
 }
 
 if(!empty($opt['ns'])) {
-    $pages = ft_pageLookup($opt['ns'], false);
+    $ns = cleanID($opt['ns']);
+    $pages = array_keys(ft_pageLookup($ns, true, false));
+    if ($ns !== '') {
+        $pages = array_filter($pages, function($id) use ($ns) {
+            return (strpos($id, $ns.':') === 0);
+        });
+    }
+
     if(!empty($pages)) {
         ptln('Found ' . count($pages) . ' pages...');
     } else {
@@ -201,6 +208,7 @@ foreach($pages as $page) {
     $entry['login']   = $opt['user'];
     $entry['mail']    = $opt['mail'];
     $entry['blog']    = $opt['blog'];
+    $entry['commentstatus'] = 'enabled';
 
     // save entry
     $entryhelper->entry = $entryhelper->prototype(); // reset entry
